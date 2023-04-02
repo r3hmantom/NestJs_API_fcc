@@ -1,5 +1,9 @@
 import { Controller, Post } from '@nestjs/common';
-import { Body, Req } from '@nestjs/common/decorators';
+import {
+  Body,
+  Req,
+} from '@nestjs/common/decorators';
+import { ParseIntPipe } from '@nestjs/common/pipes';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto';
 
@@ -8,9 +12,16 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('signup')
-  signup(@Body() dto: AuthDto) {
+  signup(
+    @Body('email') email: string,
+    @Body('password', ParseIntPipe)
+    password: string,
+  ) {
     console.log({
-      dto,
+      email,
+      password,
+      typeOf: typeof email,
+      typeOfpass: typeof password,
     });
     return this.authService.signup();
   }
