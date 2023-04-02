@@ -18,7 +18,7 @@ export class AuthController {
     password: string,
   ) {
     console.log({
-      email,
+      email, // variable email should be same as passed in @Body() decorator
       password,
       typeOf: typeof email,
       typeOfpass: typeof password,
