@@ -9,6 +9,12 @@ export class AuthService {
     return 'I am sign in';
   }
   signup(dto: AuthDto) {
+    //generate the password hash
+
+    //save the user in the database
+
+    //return the saved user
+
     return 'I am sign up';
   }
 }
