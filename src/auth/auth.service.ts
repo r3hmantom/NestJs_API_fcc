@@ -10,7 +10,15 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 @Injectable()
 export class AuthService {
   constructor(private prisma: PrismaService) {}
-  signin() {
+  async signin(dto: AuthDto) {
+    // find the user by email
+
+    // if user does not exist throw exception
+
+    // compare password
+    // if password incorrect throw exception
+
+    // send back the user
     return 'I am sign in';
   }
   async signup(dto: AuthDto) {
