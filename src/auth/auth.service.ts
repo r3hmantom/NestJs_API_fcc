@@ -1,5 +1,7 @@
 import {
   ForbiddenException,
+  HttpException,
+  HttpStatus,
   Injectable,
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -24,19 +26,19 @@ export class AuthService {
           hash,
         },
       });
-      return user;
+      return {
+        message: 'User created successfully',
+      };
     } catch (error) {
-      if (
-        error instanceof
-        PrismaClientKnownRequestError
-      ) {
-        if (error.code !== 'P2002') {
-          throw new ForbiddenException(
-            'Credentials taken',
-          );
-        }
+      if (error.code === 'P2002') {
+        throw new ForbiddenException(
+          'User already exists',
+        );
       }
-      throw error;
+      throw new HttpException(
+        'Error creating user',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
   async signin(dto: AuthDto) {
